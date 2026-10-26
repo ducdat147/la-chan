@@ -4,7 +4,7 @@
 //  • enable/disable the static rulesets (one per filter list) according to settings
 //  • dynamic rules: "pause on this site", regex filters, the user's own network filters
 //  • element hiding: answer content/cosmetic.js and inject CSS with origin USER
-//  • register MAIN-world scriptlets and the YouTube helper
+//  • register MAIN-world scriptlets, the click guard and the YouTube helper
 //  • close advertising pop-ups, element picker, context menu, badge/icon
 
 import { parseFilterList, compileNetworkRules, serializeCosmetic, PRIORITY } from './lib/filter-parser.js';
@@ -17,6 +17,7 @@ const DEFAULT_SETTINGS = Object.freeze({
   lists: {}, // listId → boolean (missing = list default)
   allowlist: [], // hostnames where blocking is paused
   popupBlocker: true,
+  clickGuard: true, // block click-hijacking overlays and tab-under redirects
   contextMenu: true,
   showBadge: true,
 });
@@ -294,6 +295,18 @@ async function syncContentScripts() {
         runAt: 'document_start',
         world: 'MAIN',
         allFrames: true,
+        persistAcrossSessions: true,
+      });
+    }
+    if (s.clickGuard) {
+      wanted.push({
+        id: 'click-guard',
+        js: ['content/click-guard.js'],
+        matches: ['<all_urls>'],
+        runAt: 'document_start',
+        world: 'MAIN',
+        allFrames: true,
+        matchOriginAsFallback: true,
         persistAcrossSessions: true,
       });
     }
@@ -601,8 +614,9 @@ const HANDLERS = {
   'options:setAllowlist': (msg) => serialized(() => setAllowlist(msg.allowlist)),
   'options:setUserFilters': (msg) => serialized(() => setUserFilters(msg.text)),
   'options:setOption': (msg) => serialized(async () => {
-    if (!['popupBlocker', 'contextMenu', 'showBadge'].includes(msg.key)) return { ok: false };
+    if (!['popupBlocker', 'clickGuard', 'contextMenu', 'showBadge'].includes(msg.key)) return { ok: false };
     await saveSettings({ [msg.key]: !!msg.value });
+    if (msg.key === 'clickGuard') await syncContentScripts();
     if (msg.key === 'contextMenu') await syncContextMenu();
     if (msg.key === 'showBadge') await setupBadge();
     return { ok: true };

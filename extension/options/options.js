@@ -149,6 +149,7 @@ function renderSites() {
 
 function renderOptions() {
   $('opt-popup').checked = state.settings.popupBlocker;
+  $('opt-click-guard').checked = state.settings.clickGuard;
   $('opt-menu').checked = state.settings.contextMenu;
   $('opt-badge').checked = state.settings.showBadge;
   const built = state.builtAt ? formatDate(new Date(state.builtAt)) : 'không rõ';
@@ -254,7 +255,7 @@ async function main() {
     else setSaveStatus('');
   });
 
-  for (const [id, key] of [['opt-popup', 'popupBlocker'], ['opt-menu', 'contextMenu'], ['opt-badge', 'showBadge']]) {
+  for (const [id, key] of [['opt-popup', 'popupBlocker'], ['opt-click-guard', 'clickGuard'], ['opt-menu', 'contextMenu'], ['opt-badge', 'showBadge']]) {
     $(id).addEventListener('change', async (ev) => {
       await send({ type: 'options:setOption', key, value: ev.target.checked });
       state.settings[key] = ev.target.checked;

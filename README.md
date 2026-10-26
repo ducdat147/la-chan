@@ -6,7 +6,8 @@ Tiện ích Chrome (Manifest V3) chặn quảng cáo, pop-up và trình theo dõ
 
 - **Chặn ở tầng mạng.** EasyList, EasyPrivacy và ABPVN (danh sách cho web Việt) được biên dịch thành luật `declarativeNetRequest` của Chrome. Hơn 110.000 bộ lọc gốc gộp lại còn khoảng 13.000 luật, nằm gọn trong mức 30.000 luật mà Chrome luôn đảm bảo.
 - **Ẩn khung quảng cáo còn sót.** CSS được Chrome chèn với độ ưu tiên của người dùng nên trang web không ghi đè được. Hỗ trợ cả bộ lọc nâng cao như `:has-text()`, `:upward()`, `:remove()`, `:style()`.
-- **Đóng pop-up và pop-under** mà trang mở ra khi bạn bấm vào bất cứ đâu.
+- **Đóng pop-up và pop-under** mở tới tên miền quảng cáo có trong danh sách lọc.
+- **Chặn quảng cáo bật ra khi bấm vào trang**, kể cả khi tên miền quảng cáo chưa có trong danh sách. Lớp phủ vô hình hay đoạn mã bắt mọi cú click không mở được tab quảng cáo nữa. Với kiểu tab-under, nội dung vẫn mở ở tab mới nhưng tab đang xem không bị đẩy sang trang quảng cáo.
 - **Mã chống quảng cáo (scriptlet)** kiểu uBlock Origin cho các trang có pop-up hoặc chặn trình chặn quảng cáo, chủ yếu từ ABPVN.
 - **YouTube:** xoá dữ liệu quảng cáo khỏi phản hồi của trình phát, ẩn quảng cáo trên giao diện, tự bấm "Bỏ qua" hoặc tua qua quảng cáo còn lọt, gỡ hộp thoại cấm trình chặn quảng cáo.
 - **Chọn phần tử để ẩn** những gì danh sách bỏ sót, từ cửa sổ của tiện ích hoặc menu chuột phải.
@@ -55,10 +56,10 @@ Sau đó vào `chrome://extensions` và bấm nút tải lại trên thẻ Lá C
 
 ```bash
 pnpm test                # kiểm thử bộ chuyển đổi bộ lọc (Node)
-pnpm test:e2e            # 54 kiểm tra trong Chromium thật (cần Python)
+pnpm test:e2e            # 74 kiểm tra trong Chromium thật (cần Python)
 ```
 
-`test:e2e` cần `pip install playwright` và `playwright install chromium`. Bộ kiểm thử chạy một máy chủ cục bộ trả lời cho mọi tên miền, nên kiểm được việc chặn thật: yêu cầu bị chặn không bao giờ tới máy chủ. Nó cũng kiểm tra ẩn phần tử, đóng pop-up, tạm dừng theo trang, công cụ chọn, bộ lọc tự viết, scriptlet trên trang Việt, YouTube và chụp ảnh giao diện vào `tests/e2e/out/`. Muốn dùng trình duyệt khác thì đặt `CHROME_PATH` (Chrome bản thường từ 137 trở đi bỏ qua cờ `--load-extension`, hãy dùng Chromium hoặc Chrome for Testing).
+`test:e2e` cần `pip install playwright` và `playwright install chromium`. Bộ kiểm thử chạy một máy chủ cục bộ trả lời cho mọi tên miền, nên kiểm được việc chặn thật: yêu cầu bị chặn không bao giờ tới máy chủ. Nó cũng kiểm tra ẩn phần tử, đóng pop-up, chặn lớp phủ quảng cáo và tab-under, tạm dừng theo trang, công cụ chọn, bộ lọc tự viết, scriptlet trên trang Việt, YouTube và chụp ảnh giao diện vào `tests/e2e/out/`. Muốn dùng trình duyệt khác thì đặt `CHROME_PATH` (Chrome bản thường từ 137 trở đi bỏ qua cờ `--load-extension`, hãy dùng Chromium hoặc Chrome for Testing).
 
 ## Cách hoạt động
 
@@ -68,6 +69,7 @@ pnpm test:e2e            # 54 kiểm tra trong Chromium thật (cần Python)
 | `extension/background.js` | Service worker: bật/tắt bộ luật, luật động (tạm dừng trang, regex, bộ lọc tự viết), chèn CSS, đóng pop-up, menu chuột phải, biểu tượng. |
 | `extension/content/cosmetic.js` | Chạy ở mọi khung trang: xin CSS cho tên miền, gom tên class/id để áp bộ lọc ẩn chung, chạy bộ lọc nâng cao. |
 | `extension/scriptlets/*.js` | Scriptlet chạy trong ngữ cảnh trang, chỉ đăng ký cho các tên miền có trong danh sách. |
+| `extension/content/click-guard.js` | Chạy trong ngữ cảnh trang ở mọi trang. Chặn tab quảng cáo mở ra từ lớp phủ vô hình hoặc từ mã bắt click của cả trang, và chặn tab-under. |
 | `extension/content/youtube.js` | Bỏ qua quảng cáo YouTube còn lọt. |
 | `extension/content/picker.js` | Công cụ chọn phần tử. |
 | `extension/lib/` | Bộ chuyển đổi cú pháp bộ lọc, dùng chung cho lệnh build và cho bộ lọc tự viết. |
