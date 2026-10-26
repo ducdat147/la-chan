@@ -1,0 +1,1 @@
+{"regexRules":[{"priority":2,"action":{"type":"allow"},"condition":{"regexFilter":"complianz-gdpr-premium/cookiebanner","resourceTypes":["script"],"domainType":"firstParty"}}],"popups":[]}

@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Lá Chắn</title>
+  <link rel="stylesheet" href="../ui/theme.css">
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <main class="popup" id="popup" data-mode="loading">
+    <header class="bar">
+      <svg class="logo" viewBox="0 0 100 100" aria-hidden="true">
+        <path class="logo-shield" d="M50 7 C62 7 75 10 87 15.5 L87 45 C87 70 71 85.5 50 94 C29 85.5 13 70 13 45 L13 15.5 C25 10 38 7 50 7 Z"/>
+        <path class="logo-vein" d="M50 20 C51.5 42 51.5 63 50 85 M50.6 44 L33 32 M50.6 44 L67 32 M50.8 62 L35 52 M50.8 62 L65 52"/>
+      </svg>
+      <span class="brand">Lá Chắn</span>
+      <label class="switch" title="Bật hoặc tắt Lá Chắn trên mọi trang">
+        <input type="checkbox" id="global-toggle" aria-label="Lá Chắn đang bật trên mọi trang">
+        <span class="track"></span>
+      </label>
+    </header>
+
+    <section class="site">
+      <h1 class="host" id="host">&nbsp;</h1>
+      <p class="status" id="status">&nbsp;</p>
+    </section>
+
+    <section class="tally" id="tally" hidden>
+      <svg class="seal" id="seal" viewBox="0 0 120 120" role="img" aria-labelledby="seal-label">
+        <title id="seal-label">Số yêu cầu đã chặn</title>
+        <defs>
+          <path id="seal-ring" d="M 60,15 a 45,45 0 1,1 0,90 a 45,45 0 1,1 0,-90"/>
+          <filter id="seal-ink" x="-8%" y="-8%" width="116%" height="116%">
+            <feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="2" seed="11" result="noise"/>
+            <feDisplacementMap in="SourceGraphic" in2="noise" scale="1.6" xChannelSelector="R" yChannelSelector="G" result="rough"/>
+            <feColorMatrix in="noise" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 -7 5.4" result="speckle"/>
+            <feComposite in="rough" in2="speckle" operator="in"/>
+          </filter>
+        </defs>
+        <g class="seal-ink" filter="url(#seal-ink)">
+          <circle cx="60" cy="60" r="56" class="seal-outer"/>
+          <circle cx="60" cy="60" r="35" class="seal-inner"/>
+          <text class="seal-ring-text"><textPath href="#seal-ring" id="seal-ring-text" textLength="276" lengthAdjust="spacing">★ LÁ CHẮN ★ ĐÃ CHẶN QUẢNG CÁO</textPath></text>
+          <text class="seal-number" id="seal-number" x="60" y="60" text-anchor="middle" dominant-baseline="central">0</text>
+        </g>
+      </svg>
+      <div class="breakdown">
+        <p class="breakdown-lead" id="breakdown-lead">&nbsp;</p>
+        <ul class="breakdown-list" id="breakdown-list"></ul>
+      </div>
+    </section>
+
+    <div class="reload" id="reload-row" hidden>
+      <p>Tải lại trang để áp dụng thay đổi.</p>
+      <button class="btn btn-primary" id="reload" type="button">Tải lại trang</button>
+    </div>
+
+    <div class="actions" id="actions" hidden>
+      <button class="btn btn-quiet" id="pause" type="button">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14M16 5v14" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" fill="none"/></svg>
+        <span id="pause-label">Tạm dừng trên trang này</span>
+      </button>
+      <button class="btn btn-quiet" id="pick" type="button">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4l6.5 16 2.2-6.8L19.5 11z" stroke="currentColor" stroke-width="2" stroke-linejoin="round" fill="none"/></svg>
+        <span>Chọn phần tử để ẩn</span>
+      </button>
+    </div>
+
+    <footer class="foot">
+      <button class="link" id="open-options" type="button">Cài đặt và bộ lọc</button>
+    </footer>
+  </main>
+  <script src="popup.js" type="module"></script>
+</body>
+</html>

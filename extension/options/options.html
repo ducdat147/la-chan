@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Lá Chắn – Cài đặt</title>
+  <link rel="icon" href="../icons/icon-32.png">
+  <link rel="stylesheet" href="../ui/theme.css">
+  <link rel="stylesheet" href="options.css">
+</head>
+<body>
+  <div class="page">
+    <header class="masthead">
+      <svg class="logo" viewBox="0 0 100 100" aria-hidden="true">
+        <path class="logo-shield" d="M50 7 C62 7 75 10 87 15.5 L87 45 C87 70 71 85.5 50 94 C29 85.5 13 70 13 45 L13 15.5 C25 10 38 7 50 7 Z"/>
+        <path class="logo-vein" d="M50 21 C51.5 42 51.5 63 50 84 M50.6 40 L35 30.5 M50.6 40 L65 30.5 M50.9 55 L31.5 44 M50.9 55 L68.5 44 M50.6 69 L37 60.5 M50.6 69 L63 60.5"/>
+      </svg>
+      <div class="masthead-text">
+        <h1>Lá Chắn</h1>
+        <p id="global-status">Đang tải…</p>
+      </div>
+      <label class="switch switch-large" title="Bật hoặc tắt Lá Chắn trên mọi trang">
+        <input type="checkbox" id="global-toggle" aria-label="Bật Lá Chắn trên mọi trang">
+        <span class="track"></span>
+      </label>
+    </header>
+
+    <aside class="welcome" id="welcome" hidden>
+      <div>
+        <h2>Lá Chắn đã sẵn sàng</h2>
+        <p>Quảng cáo, pop-up và trình theo dõi sẽ bị chặn ngay từ trang tiếp theo bạn mở. Để luôn thấy Lá Chắn trên thanh công cụ, bấm biểu tượng mảnh ghép ở góc phải trình duyệt rồi bấm ghim bên cạnh tên Lá Chắn.</p>
+      </div>
+      <button class="btn btn-quiet" id="welcome-close" type="button">Đã hiểu</button>
+    </aside>
+
+    <section class="block" aria-labelledby="h-lists">
+      <div class="gutter">
+        <h2 id="h-lists">Bộ lọc</h2>
+        <p>Danh sách quy tắc quyết định thứ gì bị chặn.</p>
+      </div>
+      <div class="content">
+        <p class="note" id="rules-note"></p>
+        <p class="warning" id="ruleset-error" hidden></p>
+        <ul class="lists" id="lists"></ul>
+      </div>
+    </section>
+
+    <section class="block" aria-labelledby="h-allow">
+      <div class="gutter">
+        <h2 id="h-allow">Trang đã tạm dừng</h2>
+        <p>Lá Chắn không chặn gì trên các trang này và trang con của chúng.</p>
+      </div>
+      <div class="content">
+        <form class="add-site" id="add-site">
+          <label for="site-input" class="visually-hidden">Tên miền cần tạm dừng</label>
+          <input id="site-input" type="text" inputmode="url" autocomplete="off" spellcheck="false" placeholder="ví dụ: tuoitre.vn">
+          <button class="btn btn-primary" type="submit">Tạm dừng</button>
+        </form>
+        <p class="form-error" id="site-error" hidden></p>
+        <ul class="sites" id="sites"></ul>
+        <p class="empty" id="sites-empty" hidden>Chưa tạm dừng trang nào. Khi một trang bị lỗi do chặn quảng cáo, mở Lá Chắn trên trang đó và chọn “Tạm dừng trên trang này”.</p>
+      </div>
+    </section>
+
+    <section class="block" aria-labelledby="h-user">
+      <div class="gutter">
+        <h2 id="h-user">Bộ lọc của tôi</h2>
+        <p>Các phần tử bạn ẩn bằng công cụ chọn cũng được lưu ở đây.</p>
+      </div>
+      <div class="content">
+        <label for="user-filters" class="visually-hidden">Bộ lọc của tôi, mỗi dòng một bộ lọc</label>
+        <textarea id="user-filters" rows="10" spellcheck="false" placeholder="! Mỗi dòng một bộ lọc. Dòng bắt đầu bằng ! là ghi chú.&#10;||quangcao.example.vn^&#10;example.com##.banner-top"></textarea>
+        <div class="save-row">
+          <button class="btn btn-primary" id="save-filters" type="button">Lưu bộ lọc</button>
+          <p class="save-status" id="save-status" role="status"></p>
+        </div>
+        <details class="syntax">
+          <summary>Cách viết bộ lọc</summary>
+          <dl>
+            <dt><code>||ads.example.com^</code></dt>
+            <dd>Chặn mọi yêu cầu tới tên miền này và tên miền con.</dd>
+            <dt><code>example.com##.quang-cao</code></dt>
+            <dd>Ẩn phần tử có class <code>quang-cao</code> trên example.com.</dd>
+            <dt><code>##.sponsored-box</code></dt>
+            <dd>Ẩn phần tử này trên mọi trang.</dd>
+            <dt><code>example.com##.tin:has-text(Tài trợ)</code></dt>
+            <dd>Ẩn khối tin có chứa chữ “Tài trợ”.</dd>
+            <dt><code>||trang-quang-cao.vn^$popup</code></dt>
+            <dd>Tự đóng tab pop-up mở tới địa chỉ này.</dd>
+            <dt><code>@@||example.com/player.js</code></dt>
+            <dd>Cho phép một địa chỉ bị chặn nhầm.</dd>
+          </dl>
+          <p>Lá Chắn hiểu phần lớn cú pháp của Adblock Plus và uBlock Origin.</p>
+        </details>
+      </div>
+    </section>
+
+    <section class="block" aria-labelledby="h-more">
+      <div class="gutter">
+        <h2 id="h-more">Tuỳ chọn khác</h2>
+      </div>
+      <div class="content">
+        <ul class="toggles">
+          <li>
+            <label class="switch">
+              <input type="checkbox" id="opt-popup">
+              <span class="track"></span>
+            </label>
+            <label for="opt-popup">
+              <strong>Đóng pop-up quảng cáo</strong>
+              <span>Tự đóng tab hoặc cửa sổ quảng cáo mà trang web mở ra khi bạn bấm.</span>
+            </label>
+          </li>
+          <li>
+            <label class="switch">
+              <input type="checkbox" id="opt-menu">
+              <span class="track"></span>
+            </label>
+            <label for="opt-menu">
+              <strong>Mục “Chặn phần tử này…” trong menu chuột phải</strong>
+              <span>Bấm chuột phải vào quảng cáo để ẩn nó ngay.</span>
+            </label>
+          </li>
+          <li>
+            <label class="switch">
+              <input type="checkbox" id="opt-badge">
+              <span class="track"></span>
+            </label>
+            <label for="opt-badge">
+              <strong>Hiện số yêu cầu đã chặn trên biểu tượng</strong>
+              <span>Con số nhỏ trên biểu tượng Lá Chắn ở thanh công cụ.</span>
+            </label>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="block" aria-labelledby="h-about">
+      <div class="gutter">
+        <h2 id="h-about">Về Lá Chắn</h2>
+      </div>
+      <div class="content about">
+        <p id="about-version"></p>
+        <p>Không trình chặn nào bắt được mọi quảng cáo. YouTube và mạng xã hội đổi cách hiển thị quảng cáo liên tục, và một số quảng cáo được phục vụ từ cùng máy chủ với nội dung. Khi thấy quảng cáo lọt qua, dùng “Chọn phần tử để ẩn”; khi một trang bị lỗi, tạm dừng Lá Chắn trên trang đó.</p>
+        <p>Để cập nhật bộ lọc mới nhất, chạy <code>npm run build</code> trong thư mục dự án rồi bấm Tải lại tiện ích trong <code>chrome://extensions</code>.</p>
+        <p class="credits">Bộ lọc: EasyList và EasyPrivacy (GPLv3 / CC BY-SA 3.0), ABPVN (GPLv3). Phông chữ Be Vietnam Pro (SIL OFL). Lá Chắn không thu thập hay gửi dữ liệu duyệt web của bạn đi đâu cả.</p>
+      </div>
+    </section>
+  </div>
+  <script src="options.js" type="module"></script>
+</body>
+</html>

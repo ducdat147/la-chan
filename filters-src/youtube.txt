@@ -1,0 +1,65 @@
+[Adblock Plus 2.0]
+! Title: Lá Chắn – YouTube
+! Description: Quảng cáo trong video và trên giao diện YouTube (bổ sung cho EasyList).
+! Version: 2026.10.02
+! License: MIT
+!
+! YouTube thay đổi cách phát quảng cáo thường xuyên. Danh sách này kết hợp với
+! content/youtube.js (tự bỏ qua quảng cáo còn sót) để xử lý nhiều lớp.
+!
+! ---------------------------------------------------------------------------
+! Quảng cáo trong video: xoá dữ liệu quảng cáo khỏi phản hồi của trình phát
+! ---------------------------------------------------------------------------
+youtube.com,youtube-nocookie.com,youtubekids.com##+js(set, ytInitialPlayerResponse.playerAds, undefined)
+youtube.com,youtube-nocookie.com,youtubekids.com##+js(set, ytInitialPlayerResponse.adPlacements, undefined)
+youtube.com,youtube-nocookie.com,youtubekids.com##+js(set, ytInitialPlayerResponse.adSlots, undefined)
+youtube.com,youtube-nocookie.com,youtubekids.com##+js(set, ytInitialPlayerResponse.adBreakHeartbeatParams, undefined)
+youtube.com,youtube-nocookie.com,youtubekids.com##+js(set, playerResponse.adPlacements, undefined)
+youtube.com,youtube-nocookie.com,youtubekids.com##+js(json-prune, playerResponse.adPlacements playerResponse.playerAds playerResponse.adSlots playerResponse.adBreakHeartbeatParams adPlacements playerAds adSlots adBreakHeartbeatParams)
+!
+! ---------------------------------------------------------------------------
+! Quảng cáo trên giao diện (trang chủ, tìm kiếm, trang xem video, Shorts)
+! ---------------------------------------------------------------------------
+youtube.com##ytd-ad-slot-renderer
+youtube.com##ytd-rich-item-renderer:has(> #content > ytd-ad-slot-renderer)
+youtube.com##ytd-rich-section-renderer:has(ytd-statement-banner-renderer)
+youtube.com##ytd-in-feed-ad-layout-renderer
+youtube.com###masthead-ad
+youtube.com##ytd-banner-promo-renderer
+youtube.com##ytd-statement-banner-renderer
+youtube.com##ytd-promoted-sparkles-web-renderer
+youtube.com##ytd-promoted-sparkles-text-search-renderer
+youtube.com##ytd-promoted-video-renderer
+youtube.com##ytd-compact-promoted-video-renderer
+youtube.com##ytd-display-ad-renderer
+youtube.com##ytd-search-pyv-renderer
+youtube.com##ytd-action-companion-ad-renderer
+youtube.com##ytd-companion-slot-renderer
+youtube.com##ytd-player-legacy-desktop-watch-ads-renderer
+youtube.com###player-ads
+youtube.com##ytd-engagement-panel-section-list-renderer[target-id="engagement-panel-ads"]
+youtube.com##ytd-ads-engagement-panel-content-renderer
+youtube.com##ytd-reel-video-renderer:has(ytd-ad-slot-renderer)
+youtube.com##.ytp-ad-overlay-container
+youtube.com##.ytp-ad-image-overlay
+youtube.com##.ytp-featured-product
+m.youtube.com##ad-slot-renderer
+m.youtube.com##ytm-promoted-sparkles-web-renderer
+m.youtube.com##ytm-promoted-video-renderer
+m.youtube.com##ytm-companion-ad-renderer
+!
+! ---------------------------------------------------------------------------
+! Hộp thoại "Trình chặn quảng cáo không được phép" (content/youtube.js gỡ phần nền)
+! ---------------------------------------------------------------------------
+youtube.com##tp-yt-paper-dialog:has(ytd-enforcement-message-view-model)
+youtube.com##ytd-enforcement-message-view-model
+!
+! ---------------------------------------------------------------------------
+! Yêu cầu mạng chỉ dùng cho quảng cáo
+! ---------------------------------------------------------------------------
+||youtube.com/api/stats/ads^
+||youtube.com/pagead/
+||youtube.com/pcs/activeview^
+||youtube.com/get_midroll_
+||youtube.com/youtubei/v1/player/ad_break
+||doubleclick.net^$domain=youtube.com|youtube-nocookie.com

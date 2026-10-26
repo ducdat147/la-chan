@@ -1,0 +1,199 @@
+@import url('fonts.css');
+
+/* Lá Chắn — shared tokens. Celadon glaze + jade ink, with the red of an official seal
+   reserved for the one thing that matters: what was blocked. */
+:root {
+  --paper: #f1f5f2;
+  --glaze: #dce7e0;
+  --glaze-strong: #c9d9cf;
+  --jade: #0e5a4f;
+  --jade-strong: #0a463d;
+  --on-jade: #f4f8f5;
+  --ink: #1b2a27;
+  --muted: #5e716c;
+  --seal: #c2272d;
+  --seal-soft: rgba(194, 39, 45, 0.1);
+  --line: rgba(14, 90, 79, 0.16);
+  --danger: #a61b22;
+  --radius: 10px;
+  --font: 'Be Vietnam Pro', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --mono: ui-monospace, 'Cascadia Mono', 'Consolas', 'Menlo', monospace;
+  color-scheme: light;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --paper: #0f1a18;
+    --glaze: #182724;
+    --glaze-strong: #22342f;
+    --jade: #6fc2ae;
+    --jade-strong: #8fd3c1;
+    --on-jade: #0b1513;
+    --ink: #e3ece8;
+    --muted: #93a8a2;
+    --seal: #e5484d;
+    --seal-soft: rgba(229, 72, 77, 0.14);
+    --line: rgba(111, 194, 174, 0.18);
+    --danger: #ff6b6f;
+    color-scheme: dark;
+  }
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font);
+  font-size: 14px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+a {
+  color: var(--jade);
+  text-underline-offset: 3px;
+}
+
+:focus-visible {
+  outline: 2px solid var(--jade);
+  outline-offset: 2px;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+/* Buttons ---------------------------------------------------------------- */
+
+.btn {
+  appearance: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 38px;
+  padding: 8px 14px;
+  border: 0;
+  border-radius: var(--radius);
+  font: 600 14px/1.2 var(--font);
+  cursor: pointer;
+  text-decoration: none;
+  transition: background-color 120ms ease, color 120ms ease;
+}
+
+.btn svg {
+  flex: none;
+  width: 18px;
+  height: 18px;
+}
+
+.btn-primary {
+  background: var(--jade);
+  color: var(--on-jade);
+}
+
+.btn-primary:hover {
+  background: var(--jade-strong);
+}
+
+.btn-quiet {
+  background: var(--glaze);
+  color: var(--jade);
+}
+
+.btn-quiet:hover {
+  background: var(--glaze-strong);
+}
+
+.btn-danger {
+  background: transparent;
+  color: var(--danger);
+  padding-inline: 8px;
+}
+
+.btn-danger:hover {
+  background: var(--seal-soft);
+}
+
+.btn:disabled {
+  opacity: 0.55;
+  cursor: default;
+}
+
+/* Switch ----------------------------------------------------------------- */
+
+.switch {
+  position: relative;
+  display: inline-flex;
+  flex: none;
+  width: 44px;
+  height: 26px;
+}
+
+.switch input {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  opacity: 0;
+  cursor: pointer;
+  z-index: 1;
+}
+
+.switch .track {
+  width: 100%;
+  height: 100%;
+  border-radius: 13px;
+  background: var(--glaze-strong);
+}
+
+.switch .track::after {
+  content: '';
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--paper);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
+}
+
+/* Switches only animate once the page has rendered its real state. */
+.ready .switch .track {
+  transition: background-color 150ms ease;
+}
+
+.ready .switch .track::after {
+  transition: transform 150ms ease;
+}
+
+.switch input:checked + .track {
+  background: var(--jade);
+}
+
+.switch input:checked + .track::after {
+  transform: translateX(18px);
+}
+
+.switch input:focus-visible + .track {
+  outline: 2px solid var(--jade);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    transition: none !important;
+    animation: none !important;
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "name": "la-chan-adblock",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Lá Chắn – tiện ích chặn quảng cáo cho Chrome (Manifest V3)",
+  "type": "module",
+  "scripts": {
+    "build": "node tools/build-filters.mjs",
+    "build:offline": "node tools/build-filters.mjs --offline",
+    "test:parser": "node tools/test-parser.mjs",
+    "test:e2e": "python3 tests/e2e/run.py",
+    "test": "node tools/test-parser.mjs"
+  },
+  "devDependencies": {
+    "css-what": "^8.0.0",
+    "re2-wasm": "^1.0.2"
+  }
+}

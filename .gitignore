@@ -1,0 +1,15 @@
+node_modules/
+tools/.cache/
+tests/
+extension/_metadata/
+__pycache__/
+.DS_Store
+graft/
+*.pem
+*.crx
+*.zip
+*.log
+.env
+.venv/
+.claude/
+CLAUDE.md

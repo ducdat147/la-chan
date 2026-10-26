@@ -1,0 +1,94 @@
+{
+  "manifest_version": 3,
+  "name": "Lá Chắn – Chặn quảng cáo",
+  "short_name": "Lá Chắn",
+  "version": "1.0.0",
+  "description": "Chặn quảng cáo, pop-up và trình theo dõi trên mọi trang web. Tối ưu cho trang tiếng Việt và YouTube.",
+  "minimum_chrome_version": "120",
+  "icons": {
+    "16": "icons/icon-16.png",
+    "32": "icons/icon-32.png",
+    "48": "icons/icon-48.png",
+    "128": "icons/icon-128.png"
+  },
+  "action": {
+    "default_title": "Lá Chắn",
+    "default_popup": "popup/popup.html",
+    "default_icon": {
+      "16": "icons/icon-16.png",
+      "32": "icons/icon-32.png"
+    }
+  },
+  "options_ui": {
+    "page": "options/options.html",
+    "open_in_tab": true
+  },
+  "background": {
+    "service_worker": "background.js",
+    "type": "module"
+  },
+  "permissions": [
+    "declarativeNetRequest",
+    "declarativeNetRequestFeedback",
+    "storage",
+    "scripting",
+    "contextMenus",
+    "webNavigation"
+  ],
+  "host_permissions": [
+    "<all_urls>"
+  ],
+  "content_scripts": [
+    {
+      "matches": [
+        "<all_urls>"
+      ],
+      "js": [
+        "content/cosmetic.js"
+      ],
+      "run_at": "document_start",
+      "all_frames": true,
+      "match_about_blank": true,
+      "match_origin_as_fallback": true
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": [
+        "resources/*"
+      ],
+      "matches": [
+        "<all_urls>"
+      ]
+    }
+  ],
+  "declarative_net_request": {
+    "rule_resources": [
+      {
+        "id": "easylist",
+        "enabled": true,
+        "path": "rules/easylist.json"
+      },
+      {
+        "id": "abpvn",
+        "enabled": true,
+        "path": "rules/abpvn.json"
+      },
+      {
+        "id": "youtube",
+        "enabled": true,
+        "path": "rules/youtube.json"
+      },
+      {
+        "id": "easyprivacy",
+        "enabled": true,
+        "path": "rules/easyprivacy.json"
+      },
+      {
+        "id": "cookies",
+        "enabled": false,
+        "path": "rules/cookies.json"
+      }
+    ]
+  }
+}
