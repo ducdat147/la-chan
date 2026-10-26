@@ -45,17 +45,17 @@ example.com##.tin:has-text(Tài trợ) ẩn khối tin có chữ "Tài trợ"
 Danh sách bộ lọc được đóng gói sẵn vào tiện ích. Để lấy bản mới nhất (nên làm vài tuần một lần):
 
 ```bash
-npm install
-npm run build
+pnpm install
+pnpm build
 ```
 
-Sau đó vào `chrome://extensions` và bấm nút tải lại trên thẻ Lá Chắn. Lệnh build tải EasyList, EasyPrivacy, ABPVN và EasyList Cookie (có địa chỉ dự phòng trên GitHub), biên dịch, kiểm tra từng luật theo đúng các điều kiện Chrome áp dụng, rồi in thống kê. Không có mạng thì dùng `npm run build:offline` với bản đã tải lần trước trong `tools/.cache/`. Danh sách nguồn nằm ở `tools/lists.mjs`; muốn thêm danh sách khác thì thêm một mục vào đó.
+Sau đó vào `chrome://extensions` và bấm nút tải lại trên thẻ Lá Chắn. Lệnh build tải EasyList, EasyPrivacy, ABPVN và EasyList Cookie (có địa chỉ dự phòng trên GitHub), biên dịch, kiểm tra từng luật theo đúng các điều kiện Chrome áp dụng, rồi in thống kê. Không có mạng thì dùng `pnpm build:offline` với bản đã tải lần trước trong `tools/.cache/`. Danh sách nguồn nằm ở `tools/lists.mjs`; muốn thêm danh sách khác thì thêm một mục vào đó.
 
 ## Kiểm thử
 
 ```bash
-npm test                 # kiểm thử bộ chuyển đổi bộ lọc (Node)
-npm run test:e2e         # 54 kiểm tra trong Chromium thật (cần Python)
+pnpm test                # kiểm thử bộ chuyển đổi bộ lọc (Node)
+pnpm test:e2e            # 54 kiểm tra trong Chromium thật (cần Python)
 ```
 
 `test:e2e` cần `pip install playwright` và `playwright install chromium`. Bộ kiểm thử chạy một máy chủ cục bộ trả lời cho mọi tên miền, nên kiểm được việc chặn thật: yêu cầu bị chặn không bao giờ tới máy chủ. Nó cũng kiểm tra ẩn phần tử, đóng pop-up, tạm dừng theo trang, công cụ chọn, bộ lọc tự viết, scriptlet trên trang Việt, YouTube và chụp ảnh giao diện vào `tests/e2e/out/`. Muốn dùng trình duyệt khác thì đặt `CHROME_PATH` (Chrome bản thường từ 137 trở đi bỏ qua cờ `--load-extension`, hãy dùng Chromium hoặc Chrome for Testing).

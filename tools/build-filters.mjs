@@ -7,8 +7,8 @@
 //   extension/filters/meta.json              list metadata + counts
 // and keeps manifest.json's rule_resources in sync with tools/lists.mjs.
 //
-// Usage: npm run build            (download fresh lists, fall back to tools/.cache)
-//        npm run build:offline    (use tools/.cache only)
+// Usage: pnpm build               (download fresh lists, fall back to tools/.cache)
+//        pnpm build:offline       (use tools/.cache only)
 
 import fs from 'node:fs/promises';
 import { existsSync } from 'node:fs';

@@ -4,6 +4,7 @@
   "private": true,
   "description": "Lá Chắn – tiện ích chặn quảng cáo cho Chrome (Manifest V3)",
   "type": "module",
+  "packageManager": "pnpm@10.28.2",
   "scripts": {
     "build": "node tools/build-filters.mjs",
     "build:offline": "node tools/build-filters.mjs --offline",

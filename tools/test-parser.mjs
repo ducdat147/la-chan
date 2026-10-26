@@ -1,4 +1,4 @@
-// Unit tests for the shared filter parser. Run: npm run test:parser
+// Unit tests for the shared filter parser. Run: pnpm test:parser
 import assert from 'node:assert/strict';
 import {
   parseFilterList, compileNetworkRules, normalizeUrlPattern, patternToRegExpSource, serializeCosmetic, PRIORITY,
