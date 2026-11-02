@@ -1,0 +1,257 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Lá Chắn – Chặn quảng cáo cho Chrome</title>
+  <meta name="description" content="Tiện ích Chrome (Manifest V3) chặn quảng cáo, pop-up và trình theo dõi, xử lý riêng cho web tiếng Việt và YouTube. Không gửi dữ liệu duyệt web đi đâu cả.">
+  <meta property="og:title" content="Lá Chắn – Chặn quảng cáo cho Chrome">
+  <meta property="og:description" content="Chặn quảng cáo, pop-up và trình theo dõi. Có bộ lọc ABPVN cho web Việt và xử lý riêng cho YouTube.">
+  <meta property="og:image" content="assets/img/screenshot-2-truoc-sau.png">
+  <link rel="icon" href="assets/img/icon-32.png">
+  <link rel="stylesheet" href="assets/fonts.css">
+  <link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+  <header class="top">
+    <div class="wrap">
+      <a class="brand" href="./"><img src="assets/img/icon-128.png" alt="">Lá Chắn</a>
+      <nav>
+        <a href="#cai-dat">Cài đặt</a>
+        <a class="opt" href="#su-dung">Sử dụng</a>
+        <a class="opt" href="privacy.html">Quyền riêng tư</a>
+        <a href="https://github.com/ducdat147/la-chan">GitHub</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="wrap">
+        <div>
+          <span class="eyebrow">Tiện ích Chrome · Manifest V3</span>
+          <h1>Đọc báo Việt <span>không còn quảng cáo</span> nhảy ra.</h1>
+          <p class="lead">Lá Chắn chặn quảng cáo, pop-up và trình theo dõi trên mọi trang. Danh sách ABPVN lo phần web Việt, còn YouTube có cơ chế riêng. Không dữ liệu nào rời khỏi máy bạn.</p>
+          <div class="cta">
+            <a class="btn primary" href="#cai-dat">Cài đặt ngay</a>
+            <a class="btn ghost" href="https://github.com/ducdat147/la-chan">Xem mã nguồn</a>
+          </div>
+        </div>
+        <img class="shot" src="assets/img/screenshot-2-truoc-sau.png" width="1280" height="800" alt="Trang tin tức trước và sau khi bật Lá Chắn: banner, pop-up trúng thưởng và quảng cáo dính đáy đều biến mất.">
+      </div>
+    </section>
+
+    <div class="wrap stats">
+      <div class="stat"><b>110.000+</b><span>bộ lọc gốc từ 4 danh sách</span></div>
+      <div class="stat"><b>~13.000</b><span>luật mạng sau khi gộp</span></div>
+      <div class="stat"><b>0</b><span>yêu cầu tự gửi ra Internet</span></div>
+      <div class="stat"><b>74</b><span>kiểm thử chạy trong Chromium thật</span></div>
+    </div>
+
+    <div class="wrap docs">
+      <aside class="toc">
+        <p>Tài liệu</p>
+        <ol>
+          <li><a href="#tinh-nang">Tính năng</a></li>
+          <li><a href="#cai-dat">Cài đặt</a></li>
+          <li><a href="#su-dung">Sử dụng</a></li>
+          <li><a href="#bo-loc">Bộ lọc tự viết</a></li>
+          <li><a href="#youtube">YouTube</a></li>
+          <li><a href="#cap-nhat">Cập nhật bộ lọc</a></li>
+          <li><a href="#kiem-thu">Kiểm thử</a></li>
+          <li><a href="#kien-truc">Cách hoạt động</a></li>
+          <li><a href="#gioi-han">Giới hạn</a></li>
+          <li><a href="#giay-phep">Giấy phép</a></li>
+        </ol>
+      </aside>
+
+      <article>
+        <section id="tinh-nang">
+          <h2>Tính năng</h2>
+          <p>Quảng cáo bị chặn ở nhiều lớp. Lớp nào bỏ sót thì lớp sau bắt tiếp.</p>
+          <div class="features">
+            <div class="feature">
+              <h3>Chặn ở tầng mạng</h3>
+              <p>EasyList, EasyPrivacy và ABPVN được biên dịch thành luật <code>declarativeNetRequest</code>. Yêu cầu tới máy chủ quảng cáo bị cắt trước khi kịp tải.</p>
+            </div>
+            <div class="feature">
+              <h3>Ẩn khung còn sót</h3>
+              <p>CSS được chèn với độ ưu tiên của người dùng, trang không ghi đè được. Hỗ trợ <code>:has-text()</code>, <code>:upward()</code>, <code>:remove()</code>, <code>:style()</code>.</p>
+            </div>
+            <div class="feature">
+              <h3>Đóng pop-up, pop-under</h3>
+              <p>Tab mở tới tên miền quảng cáo trong danh sách lọc sẽ tự đóng.</p>
+            </div>
+            <div class="feature">
+              <h3>Chống click lừa</h3>
+              <p>Lớp phủ vô hình hay mã bắt mọi cú click không mở được tab quảng cáo, kể cả với tên miền chưa có trong danh sách. Kiểu tab-under cũng bị chặn.</p>
+            </div>
+            <div class="feature">
+              <h3>Scriptlet chống quảng cáo</h3>
+              <p>Đoạn mã kiểu uBlock Origin cho những trang hay bật pop-up hoặc đòi tắt trình chặn, phần lớn lấy từ ABPVN.</p>
+            </div>
+            <div class="feature">
+              <h3>Chọn phần tử để ẩn</h3>
+              <p>Trỏ vào thứ còn lọt, bấm một cái, xong. Mở từ cửa sổ tiện ích hoặc menu chuột phải.</p>
+            </div>
+          </div>
+          <div class="gallery">
+            <figure>
+              <img src="assets/img/screenshot-1-popup.png" width="1280" height="800" loading="lazy" alt="Cửa sổ Lá Chắn hiện số yêu cầu đã chặn trên trang">
+              <figcaption>Cửa sổ tiện ích đếm số yêu cầu bị chặn trên từng trang.</figcaption>
+            </figure>
+            <figure>
+              <img src="assets/img/screenshot-3-bo-loc.png" width="1280" height="800" loading="lazy" alt="Màn hình danh sách bộ lọc">
+              <figcaption>Bật tắt từng danh sách lọc.</figcaption>
+            </figure>
+            <figure>
+              <img src="assets/img/screenshot-4-tuy-chon.png" width="1280" height="800" loading="lazy" alt="Màn hình tuỳ chọn">
+              <figcaption>Trang tuỳ chọn với bộ lọc tự viết và danh sách trang tạm dừng.</figcaption>
+            </figure>
+          </div>
+        </section>
+
+        <section id="cai-dat">
+          <h2>Cài đặt</h2>
+          <p>Tiện ích chưa lên Chrome Web Store. Bạn cài dạng giải nén theo bốn bước.</p>
+          <ol class="steps">
+            <li>Tải <a href="https://github.com/ducdat147/la-chan/archive/refs/heads/master.zip">mã nguồn dạng zip</a> rồi giải nén. Giữ nguyên cấu trúc thư mục.</li>
+            <li>Mở <code>chrome://extensions</code> và bật <b>Chế độ dành cho nhà phát triển</b> ở góc trên bên phải.</li>
+            <li>Bấm <b>Tải tiện ích đã giải nén</b>, chọn thư mục <code>extension/</code> (nơi có <code>manifest.json</code>).</li>
+            <li>Bấm biểu tượng mảnh ghép trên thanh công cụ và ghim <b>Lá Chắn</b>.</li>
+          </ol>
+          <p class="note">Cần Chrome 120 trở lên. Edge, Brave, Cốc Cốc và các trình duyệt nhân Chromium khác cài theo cách tương tự.</p>
+        </section>
+
+        <section id="su-dung">
+          <h2>Sử dụng</h2>
+          <p>Bấm biểu tượng Lá Chắn để xem con dấu đỏ đếm số yêu cầu đã chặn. Từ đây bạn có thể tạm dừng trên trang hiện tại hoặc chọn phần tử để ẩn.</p>
+          <h3>Quảng cáo vẫn lọt</h3>
+          <p>Chọn <b>Chọn phần tử để ẩn</b>, hoặc chuột phải rồi chọn <b>Chặn phần tử này…</b>. Trỏ vào quảng cáo, bấm, sau đó chọn <b>Ẩn vĩnh viễn</b>. Quy tắc mới nằm trong <i>Bộ lọc của tôi</i>.</p>
+          <h3>Trang bị lỗi</h3>
+          <p>Chọn <b>Tạm dừng trên trang này</b> rồi tải lại trang. Muốn bật lại thì bấm lần nữa.</p>
+          <h3>Tuỳ chọn</h3>
+          <p>Chuột phải vào biểu tượng và chọn <b>Tuỳ chọn</b>. Ở đó có danh sách lọc, các trang đang tạm dừng, bộ lọc tự viết, cách xử lý pop-up, menu chuột phải và con số trên biểu tượng.</p>
+        </section>
+
+        <section id="bo-loc">
+          <h2>Bộ lọc tự viết</h2>
+          <p>Lá Chắn hiểu cú pháp Adblock Plus và uBlock Origin. Vài ví dụ thường gặp:</p>
+<pre><code>||quangcao.example.vn^              chặn mọi yêu cầu tới tên miền này
+example.com##.banner-top            ẩn phần tử trên example.com
+##.sponsored-box                    ẩn trên mọi trang
+example.com##.tin:has-text(Tài trợ) ẩn khối tin có chữ "Tài trợ"
+||trang-quang-cao.vn^$popup         tự đóng pop-up mở tới địa chỉ này
+@@||example.com/player.js           cho phép một địa chỉ bị chặn nhầm</code></pre>
+          <p>Bộ lọc regex được đưa sang luật động. Chrome kiểm tra chúng bằng <code>isRegexSupported()</code> lúc chạy, luật nào không hợp lệ sẽ bị bỏ qua.</p>
+        </section>
+
+        <section id="youtube">
+          <h2>YouTube</h2>
+          <p>YouTube có danh sách riêng <code>filters-src/youtube.txt</code> và một content script riêng. Các lớp xử lý lần lượt là:</p>
+          <ul>
+            <li>Xoá <code>adPlacements</code>, <code>playerAds</code>, <code>adSlots</code> khỏi phản hồi của trình phát, nên phần lớn quảng cáo không bao giờ được nạp.</li>
+            <li>Ẩn khung quảng cáo trên giao diện.</li>
+            <li>Quảng cáo nào vẫn lọt thì nút <b>Bỏ qua</b> được bấm ngay. Không có nút thì quảng cáo bị tắt tiếng và tua tới cuối.</li>
+            <li>Hộp thoại “không cho phép trình chặn quảng cáo” bị gỡ, video phát tiếp.</li>
+            <li>Video chính tự dừng sau khi quảng cáo bị bỏ qua thì được phát lại. Lần dừng xảy ra ngay sau một cú click, chạm hay phím bấm được coi là của bạn và giữ nguyên.</li>
+          </ul>
+          <p class="note warn">YouTube đổi cách phát quảng cáo liên tục, có cả quảng cáo chèn từ máy chủ. Khi họ thay đổi, có thể phải cập nhật <code>filters-src/youtube.txt</code> hoặc <code>extension/content/youtube.js</code>.</p>
+        </section>
+
+        <section id="cap-nhat">
+          <h2>Cập nhật bộ lọc</h2>
+          <p>Danh sách lọc được đóng gói sẵn trong tiện ích. Vài tuần nên build lại một lần để lấy bản mới:</p>
+<pre><code>pnpm install
+pnpm build</code></pre>
+          <p>Lệnh build tải EasyList, EasyPrivacy, ABPVN và EasyList Cookie, có địa chỉ dự phòng trên GitHub. Nó biên dịch, kiểm tra từng luật theo đúng điều kiện của Chrome rồi in thống kê. Xong thì vào <code>chrome://extensions</code> và bấm tải lại thẻ Lá Chắn.</p>
+          <p>Không có mạng thì chạy <code>pnpm build:offline</code>, lệnh này dùng bản đã tải trong <code>tools/.cache/</code>. Muốn thêm danh sách khác, thêm một mục vào <code>tools/lists.mjs</code>.</p>
+        </section>
+
+        <section id="kiem-thu">
+          <h2>Kiểm thử</h2>
+<pre><code>pnpm test        # bộ chuyển đổi bộ lọc, chạy bằng Node
+pnpm test:e2e    # 74 kiểm tra trong Chromium thật, cần Python</code></pre>
+          <p>Trước khi chạy <code>test:e2e</code>, cài <code>pip install playwright</code> và <code>playwright install chromium</code>. Bộ kiểm thử dựng một máy chủ cục bộ trả lời cho mọi tên miền. Nhờ vậy việc chặn được kiểm tra thật: yêu cầu bị chặn không bao giờ chạm tới máy chủ.</p>
+          <p>Các kiểm tra phủ ẩn phần tử, đóng pop-up, lớp phủ quảng cáo, tab-under, tạm dừng theo trang, công cụ chọn, bộ lọc tự viết, scriptlet trên trang Việt và YouTube. Ảnh chụp giao diện được lưu vào <code>tests/e2e/out/</code>.</p>
+          <p class="note">Chrome bản thường từ 137 trở đi bỏ qua cờ <code>--load-extension</code>. Hãy đặt <code>CHROME_PATH</code> trỏ tới Chromium hoặc Chrome for Testing.</p>
+        </section>
+
+        <section id="kien-truc">
+          <h2>Cách hoạt động</h2>
+          <div class="table">
+            <table>
+              <thead><tr><th>Thành phần</th><th>Vai trò</th></tr></thead>
+              <tbody>
+                <tr><td><code>extension/rules/*.json</code></td><td>Bộ luật tĩnh, mỗi danh sách một bộ. Bộ lọc chỉ có tên miền (<code>||ads.com^</code>) được gộp thành một luật <code>requestDomains</code>.</td></tr>
+                <tr><td><code>extension/background.js</code></td><td>Service worker. Bật tắt bộ luật, quản lý luật động, chèn CSS, đóng pop-up, menu chuột phải và biểu tượng.</td></tr>
+                <tr><td><code>content/cosmetic.js</code></td><td>Chạy ở mọi khung trang. Xin CSS cho tên miền, gom class và id để áp bộ lọc ẩn chung, chạy bộ lọc nâng cao.</td></tr>
+                <tr><td><code>scriptlets/*.js</code></td><td>Chạy trong ngữ cảnh trang, chỉ đăng ký cho tên miền có trong danh sách.</td></tr>
+                <tr><td><code>content/click-guard.js</code></td><td>Chặn tab quảng cáo mở từ lớp phủ vô hình hoặc từ mã bắt click, và chặn tab-under.</td></tr>
+                <tr><td><code>content/youtube.js</code></td><td>Bỏ qua quảng cáo YouTube còn lọt và phát tiếp video bị dừng.</td></tr>
+                <tr><td><code>content/picker.js</code></td><td>Công cụ chọn phần tử.</td></tr>
+                <tr><td><code>extension/lib/</code></td><td>Bộ chuyển đổi cú pháp bộ lọc, dùng chung cho lệnh build và bộ lọc tự viết.</td></tr>
+                <tr><td><code>tools/</code></td><td>Lệnh build bộ lọc, mã nguồn scriptlet, kiểm thử đơn vị.</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <h3>Vài quyết định thiết kế</h3>
+          <ul>
+            <li>Chỉ một luật tĩnh sai là Chrome từ chối nạp cả tiện ích. Vì thế lệnh build kiểm từng luật, kiểm selector bằng trình phân tích CSS và chuyển regex sang luật động.</li>
+            <li>EasyList có khoảng 13.000 bộ lọc ẩn chung chỉ gồm một class hoặc id. Chèn hết vào mọi trang thì quá nặng. <code>cosmetic.js</code> gom những class và id thực sự có trên trang theo từng đợt nhỏ, service worker chỉ chèn phần khớp.</li>
+            <li>Ngoại lệ <code>@@</code> được đánh số luật nhỏ hơn luật chặn. Cửa sổ tiện ích nhờ đó đếm đúng số yêu cầu bị chặn.</li>
+          </ul>
+        </section>
+
+        <section id="gioi-han">
+          <h2>Giới hạn</h2>
+          <ul>
+            <li>Không trình chặn nào bắt được mọi quảng cáo. Gặp cái lọt thì công cụ chọn phần tử là cách nhanh nhất.</li>
+            <li>Bài tài trợ trên Facebook và TikTok nằm lẫn trong luồng nội dung, mã lại bị làm rối. Các danh sách đi kèm gần như bó tay.</li>
+            <li>Manifest V3 giới hạn regex ở 2 KB khi biên dịch và không hỗ trợ <code>$csp</code>, <code>$removeparam</code>. Scriptlet <code>trusted-*</code> và vài tài nguyên chuyển hướng của uBlock Origin cũng không có. Lệnh build in rõ bộ lọc nào bị bỏ và vì sao.</li>
+            <li>Bộ lọc chỉ mới khi bạn build lại.</li>
+            <li>Chrome tự tạo thư mục <code>extension/_metadata/</code> khi tải dạng giải nén. Đó là dữ liệu tạm, xoá được.</li>
+          </ul>
+        </section>
+
+        <section id="giay-phep">
+          <h2>Giấy phép</h2>
+          <ul>
+            <li>EasyList, EasyPrivacy, EasyList Cookie theo GPLv3 hoặc CC BY-SA 3.0 (<a href="https://easylist.to/">easylist.to</a>).</li>
+            <li>ABPVN theo GPLv3 (<a href="https://abpvn.com/">abpvn.com</a>).</li>
+            <li>Phông Be Vietnam Pro theo SIL Open Font License.</li>
+          </ul>
+          <p>Dữ liệu trong <code>extension/rules</code>, <code>extension/filters</code> và <code>extension/scriptlets</code> sinh ra từ các danh sách trên và giữ nguyên giấy phép gốc. Mã nguồn của Lá Chắn phát hành theo <a href="https://github.com/ducdat147/la-chan/blob/master/LICENSE">giấy phép MIT</a>.</p>
+        </section>
+      </article>
+    </div>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <span>Lá Chắn 1.0.0 · Không thu thập dữ liệu.</span>
+      <nav>
+        <a href="privacy.html">Quyền riêng tư</a>
+        <a href="https://github.com/ducdat147/la-chan/issues">Báo lỗi</a>
+        <a href="https://github.com/ducdat147/la-chan">GitHub</a>
+      </nav>
+    </div>
+  </footer>
+
+  <script>
+    // Tô sáng mục lục theo phần đang đọc.
+    const links = new Map([...document.querySelectorAll('.toc a')].map((a) => [a.hash.slice(1), a]));
+    const io = new IntersectionObserver((entries) => {
+      for (const e of entries) {
+        if (!e.isIntersecting) continue;
+        for (const a of links.values()) a.classList.remove('on');
+        links.get(e.target.id)?.classList.add('on');
+      }
+    }, { rootMargin: '-80px 0px -70% 0px' });
+    for (const id of links.keys()) {
+      const el = document.getElementById(id);
+      if (el) io.observe(el);
+    }
+  </script>
+</body>
+</html>
