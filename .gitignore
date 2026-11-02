@@ -5,6 +5,7 @@ extension/_metadata/
 __pycache__/
 .DS_Store
 graft/
+.trail/
 *.pem
 *.crx
 *.zip
@@ -13,3 +14,4 @@ graft/
 .venv/
 .claude/
 CLAUDE.md
+store/
